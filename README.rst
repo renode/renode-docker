@@ -3,7 +3,7 @@ Renode Docker image
 
 This repository contains a Dockerfile for Renode.
 
-Running ``build.sh`` downloads and builds the newest version from the Renode git repository on top of a Ubuntu image.
+Running ``build.sh`` downloads and installs the newest release of Renode on top of a Ubuntu image.
 
 ``run.sh`` starts Renode in interactive mode.
 You can provide another command as a parameter to this script instead.
