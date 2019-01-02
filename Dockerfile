@@ -1,6 +1,8 @@
 # This docker configuration file lets you easily run Renode and simulate embedded devices
 # on an x86 desktop or laptop. The framework can be used for debugging and automated testing.
-FROM ubuntu
+FROM ubuntu:18.04
+
+LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
 # Install main dependencies and some useful tools
 RUN apt update
@@ -31,8 +33,10 @@ ENV HOME /home/developer
 WORKDIR /home/developer
 
 # Install Renode
-RUN wget https://github.com/renode/renode/releases/download/v1.6/renode_1.6.0_amd64.deb
-RUN sudo dpkg -i renode_1.6.0_amd64.deb
+RUN wget https://github.com/renode/renode/releases/download/v1.6.1/renode_1.6.1_amd64.deb
+RUN sudo apt install -y ./renode_1.6.1_amd64.deb
+
+# Build the development version
 RUN git clone https://github.com/renode/renode.git && \
     cd renode && \
     bash build.sh -p && \
