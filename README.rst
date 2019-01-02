@@ -3,11 +3,12 @@ Renode Docker image
 
 This repository contains a Dockerfile for Renode.
 
-Running ``build.sh`` downloads and installs the newest release of Renode on top of a Ubuntu image.
+The image is based on Ubuntu 18.04.
 
-``run.sh`` starts Renode in interactive mode.
-You can provide another command as a parameter to this script instead.
+Renode is installed from a release package and also compiled from the corresponding sources.
 
-To mount your own local directory, modify the ``run.sh`` script by adding more ``-v`` switches.
+To build the image run ``docker build --build-arg userId=`id -u` --build-arg groupId=`id -g` -t renode .``.
+
+The image will start Renode in interactive mode by default.
 
 For more information, visit the `Renode website <renode.io>`_, `Renode documentation <renode.readthedocs.io>`_ and `Docker documentation <docs.docker.com>`_.
