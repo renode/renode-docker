@@ -1,7 +1,7 @@
 Renode Docker image
 ===================
 
-This repository contains a Dockerfile for Renode.
+This repository contains a Dockerfile for Renode, available on Docker Hub as ``antmicro/renode``.
 
 The image is based on Ubuntu 18.04.
 
