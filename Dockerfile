@@ -43,6 +43,6 @@ USER developer
 # Build the development version
 RUN git clone https://github.com/renode/renode.git && \
     cd renode && \
-    bash build.sh -p && \
-    cd /home/developer
+    git checkout v${RENODE_VERSION} && \
+    bash build.sh -p
 CMD renode
