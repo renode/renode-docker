@@ -32,9 +32,13 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
+ARG RENODE_VERSION=1.6.1
+
 # Install Renode
-RUN wget https://github.com/renode/renode/releases/download/v1.6.1/renode_1.6.1_amd64.deb
-RUN sudo apt install -y ./renode_1.6.1_amd64.deb
+RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb
+USER root
+RUN apt install -y ./renode_${RENODE_VERSION}_amd64.deb
+USER developer
 
 # Build the development version
 RUN git clone https://github.com/renode/renode.git && \
