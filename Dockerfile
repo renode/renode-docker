@@ -7,8 +7,8 @@ LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 # Install main dependencies and some useful tools
 RUN apt update && apt install -y gnupg ca-certificates
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-RUN echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-RUN apt update && apt install -y mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip sudo wget git ruby-dev build-essential rpm bsdtar && rm -rf /var/lib/apt/lists/*
+RUN echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.20.1.19 main" | tee /etc/apt/sources.list.d/mono-official-stable.list
+RUN apt update && apt install -y mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies - mostly for Robot testing
 RUN python -m pip install robotframework netifaces requests psutil
