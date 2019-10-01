@@ -39,7 +39,7 @@ ARG RENODE_PACKAGE=1.8.0
 # Install Renode
 RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_PACKAGE}_amd64.deb
 USER root
-RUN apt install -y ./renode_${RENODE_VERSION}_amd64.deb
+RUN apt install -y ./renode_${RENODE_PACKAGE}_amd64.deb
 USER developer
 
 # Build the development version
