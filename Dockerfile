@@ -11,7 +11,7 @@ RUN echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapsh
 RUN apt update && apt install -y mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies - mostly for Robot testing
-RUN python -m pip install robotframework netifaces requests psutil
+RUN python -m pip install robotframework==3.0.4 netifaces requests psutil
 
 # Install FPM for packaging support
 RUN gem install fpm
