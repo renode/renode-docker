@@ -33,13 +33,12 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-ARG RENODE_VERSION=1.8
-ARG RENODE_PACKAGE=1.8.0
+ARG RENODE_VERSION=1.8.1
 
 # Install Renode
-RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_PACKAGE}_amd64.deb
+RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb
 USER root
-RUN apt install -y ./renode_${RENODE_PACKAGE}_amd64.deb
+RUN apt install -y ./renode_${RENODE_VERSION}_amd64.deb
 USER developer
 
 # Build the development version
