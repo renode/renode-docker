@@ -11,4 +11,4 @@ To build the image run ``docker build --build-arg userId=`id -u` --build-arg gro
 
 The image will start Renode in interactive mode by default.
 
-For more information, visit the `Renode website <renode.io>`_, `Renode documentation <renode.readthedocs.io>`_ and `Docker documentation <docs.docker.com>`_.
+For more information, visit the `Renode website <https://renode.io>`_, `Renode documentation <https://renode.readthedocs.io>`_ and `Docker documentation <https://docs.docker.com>`_.
