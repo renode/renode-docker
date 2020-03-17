@@ -18,8 +18,8 @@ RUN gem install fpm
 RUN sed -i.bkp -e \
       's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' \
       /etc/sudoers
-ARG userId=1000
-ARG groupId=1000
+ARG userId
+ARG groupId
 RUN mkdir -p /home/developer && \
     echo "developer:x:$userId:$groupId:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
     echo "developer:x:$userId:" >> /etc/group && \
