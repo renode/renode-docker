@@ -1,15 +1,12 @@
 # This docker configuration file lets you easily run Renode and simulate embedded devices
 # on an x86 desktop or laptop. The framework can be used for debugging and automated testing.
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
 # Install main dependencies and some useful tools
-RUN apt-get update && apt-get install -y --no-install-recommends gnupg ca-certificates && rm -rf /var/lib/apt/lists/*
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-RUN echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.20.1.19 main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-RUN apt-get update && apt-get install -y --no-install-recommends mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip python-dev python-setuptools sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python3 python3-pip python3-dev python3-setuptools sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
 
 # Install FPM for packaging support
 RUN gem install fpm
