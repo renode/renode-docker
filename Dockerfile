@@ -5,10 +5,10 @@ FROM ubuntu:18.04
 LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
 # Install main dependencies and some useful tools
-RUN apt update && apt install -y gnupg ca-certificates
+RUN apt-get update && apt-get install -y --no-install-recommends gnupg ca-certificates && rm -rf /var/lib/apt/lists/*
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 RUN echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.20.1.19 main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-RUN apt update && apt install -y mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python2.7 python-pip python-dev python-setuptools sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
 
 
 # Install FPM for packaging support
@@ -34,15 +34,15 @@ WORKDIR /home/developer
 ARG RENODE_VERSION=1.9.0
 
 # Install Renode
-RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb
 USER root
-RUN apt install -y ./renode_${RENODE_VERSION}_amd64.deb
+RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb && \
+    apt-get install -y --no-install-recommends ./renode_${RENODE_VERSION}_amd64.deb && \
+    rm ./renode_${RENODE_VERSION}_amd64.deb
 USER developer
 
 # Build the development version
-RUN git clone https://github.com/renode/renode.git && \
+RUN git clone https://github.com/renode/renode.git --depth 1 -b v${RENODE_VERSION} && \
     cd renode && \
-    git checkout v${RENODE_VERSION} && \
     bash build.sh -p && \
-    python -m pip install -r tools/requirements.txt
+    python -m pip install -r tools/requirements.txt --no-cache-dir
 CMD renode
