@@ -6,10 +6,7 @@ LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
 # Install main dependencies and some useful tools
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends mono-complete g++ policykit-1 libgtk2.0-0 screen uml-utilities gtk-sharp2 python3 python3-pip python3-dev python3-setuptools sudo wget git ruby-dev build-essential rpm bsdtar zlib1g-dev && rm -rf /var/lib/apt/lists/*
-
-# Install FPM for packaging support
-RUN gem install fpm
+    apt-get install -y --no-install-recommends ca-certificates sudo wget && rm -rf /var/lib/apt/lists/*
 
 # Set up users
 RUN sed -i.bkp -e \
@@ -33,13 +30,10 @@ ARG RENODE_VERSION=1.10.0
 # Install Renode
 USER root
 RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb && \
-    apt-get install -y --no-install-recommends ./renode_${RENODE_VERSION}_amd64.deb && \
-    rm ./renode_${RENODE_VERSION}_amd64.deb
+    apt-get update && \
+    apt-get install -y --no-install-recommends ./renode_${RENODE_VERSION}_amd64.deb python3-dev && \
+    rm ./renode_${RENODE_VERSION}_amd64.deb && \
+    rm -rf /var/lib/apt/lists/*
+RUN pip3 install -r /opt/renode/tests/requirements.txt --no-cache-dir
 USER developer
-
-# Build the development version
-RUN git clone https://github.com/renode/renode.git --depth 1 -b v${RENODE_VERSION} && \
-    cd renode && \
-    bash build.sh -p && \
-    python -m pip install -r tools/requirements.txt --no-cache-dir
 CMD renode
