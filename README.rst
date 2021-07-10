@@ -20,6 +20,7 @@ Note on ``podman`` replacing ``docker``: https://podman.io/whatis.html
 
 Static image size comparison: 
     Ubuntu base ~805 MB
+
     Mono:slim   ~311 MB
 
 BUILD THE IMAGE
@@ -40,7 +41,7 @@ CONNECT TO THE RUNNING INTERACTIVE INSTANCE OF RENODE
 
 BUILD A SPECIFIC VERSION OF RENODE
 -------------------------------
-``podman build -t test_renode_min ./ -f Dockerfile.min --build-arg RENODE_VERSION=1.11.0``
+``podman build -t renode_min_test ./ -f Dockerfile.min --build-arg RENODE_VERSION=1.11.0``
 
 
 For more information, visit the `Renode website <https://renode.io>`_, `Renode documentation <https://renode.readthedocs.io>`_ and `Docker documentation <https://docs.docker.com>`_.
