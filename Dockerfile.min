@@ -34,6 +34,7 @@ RUN tar -vxf $RENODE_COMPRESSED_DIR/* -C $RENODE_DEST_BUILDER
 # Using mono:slim. Was able to get scratch to load by copying some dynamic libraries returned
 # by ldd. But mono calls other shared libs at runtime. Finding each is a britle task.
 FROM mono:slim as RUNTIME
+
 # Bring global values into scope
 ARG RENODE_DEST_BUILDER
 ARG RENODE_VERSION
