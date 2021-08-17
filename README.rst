@@ -5,7 +5,7 @@ This repository contains a Dockerfile for Renode, available on Docker Hub as ``a
 
 The image is based on Ubuntu 20.04.
 
-Renode is installed from a release package and also compiled from the corresponding sources.
+Renode is installed from a release Debian package.
 
 To build the image run ``docker build --build-arg userId=`id -u` --build-arg groupId=`id -g` -t renode .``.
 
@@ -14,35 +14,41 @@ The image will start Renode in interactive mode by default.
 
 Renode minimized container image
 ================================
-This Dockerfile uses a multistage build with runtime image based on mono:slim to minimize runtime container components, static image size.
-By default if no version is passed via `--build-arg RENODE_VERSION=x.y.z` it will build `1.12.0`.
-Note on ``podman`` replacing ``docker``: https://podman.io/whatis.html
 
-Static image size comparison: 
+This Dockerfile uses a multistage build with runtime image based on mono:slim to minimize runtime container components and static image size.
+By default if no version is passed via `--build-arg RENODE_VERSION=x.y.z` it will build `1.12.0`.
+
+Note on ``Podman`` replacing ``Docker``: https://podman.io/whatis.html
+
+Static image size comparison:
     Ubuntu base ~805 MB
 
     Mono:slim   ~311 MB
 
-BUILD THE IMAGE
+Build the image
 ---------------
+
 ``podman build -t renode_min_test ./ -f Dockerfile.min``
 
-RUN THE IMAGE LOCALLY
+Run the image locally
 ---------------------
+
 ``podman run -p 1234:1234 localhost/renode_min_test``
 
-RUN THE IMAGE AS SERVICE
+Run the image as service
 ------------------------
+
 ``podman run -d -p 1234:1234 localhost/renode_min_test``
 
-CONNECT TO THE RUNNING INTERACTIVE INSTANCE OF RENODE
+Connect to the running interactive instance of Renode
 -----------------------------------------------------
+
 ``telnet localhost 1234``
 
-BUILD A SPECIFIC VERSION OF RENODE
--------------------------------
-``podman build -t renode_min_test ./ -f Dockerfile.min --build-arg RENODE_VERSION=1.11.0``
+Build a specific version of Renode
+----------------------------------
 
+``podman build -t renode_min_test ./ -f Dockerfile.min --build-arg RENODE_VERSION=1.11.0``
 
 For more information, visit the `Renode website <https://renode.io>`_, `Renode documentation <https://renode.readthedocs.io>`_ and `Docker documentation <https://docs.docker.com>`_.
 
