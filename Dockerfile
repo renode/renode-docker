@@ -1,6 +1,6 @@
 # This docker configuration file lets you easily run Renode and simulate embedded devices
 # on an x86 desktop or laptop. The framework can be used for debugging and automated testing.
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
