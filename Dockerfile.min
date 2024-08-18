@@ -3,7 +3,7 @@
 #      GLOBAL ARGS      #
 #########################
 ARG RENODE_DEST_BUILDER=/opt/renode/
-ARG RENODE_VERSION=1.15.1
+ARG RENODE_VERSION=1.15.2
 ARG RENODE_URL=https://github.com/renode/renode/releases/download/v$RENODE_VERSION/renode-$RENODE_VERSION.linux-portable.tar.gz
 
 
