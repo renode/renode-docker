@@ -1,32 +1,27 @@
 # This dockerfile builds a minimized runtime image.
-
 ARG RENODE_DEST_BUILDER=/opt/renode/
 ARG RENODE_VERSION=1.16.1
-ARG RENODE_URL=https://github.com/renode/renode/releases/download/v$RENODE_VERSION/renode-$RENODE_VERSION.linux-portable.tar.gz
+ARG RENODE_URL=https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode-${RENODE_VERSION}.linux-dotnet.tar.gz
 
 
 # Ubuntu used as builder image for quick tool access, could be minimized if desired
 FROM ubuntu:24.04 AS builder
 
-ARG RENODE_DEST_BUILDER
 ARG RENODE_URL
-# !!CONFIG NOTE!!: the trailing `/` here is important. Removing it will cause ADD below to rename external file
-# while having it in place has the external file placed into the compressed folder as intended.
-ARG RENODE_COMPRESSED_DIR=/opt/renode/compressed/
 
-# Get compressed binary from $RENODE_URL set above and deposit in $RENODE_DEST_BUILDER set above
-ADD $RENODE_URL $RENODE_COMPRESSED_DIR
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends sudo ca-certificates wget
 
-# Uncompress the portable linux binary
-RUN tar -vxf $RENODE_COMPRESSED_DIR/* -C $RENODE_DEST_BUILDER
+RUN wget ${RENODE_URL} -O /opt/renode.tar.gz
+
+RUN tar -vxf /opt/renode.tar.gz -C /opt
 
 
-# Using mono:slim. Was able to get scratch to load by copying some dynamic libraries returned
-# by ldd. But mono calls other shared libs at runtime. Finding each is a britle task.
-FROM mono:slim AS runtime
+# bookworm-slim used as runtime image to minimize size
+FROM mcr.microsoft.com/dotnet/runtime:8.0-bookworm-slim AS runtime
 
 ARG RENODE_DEST_BUILDER
 ARG RENODE_VERSION
 
-COPY --from=builder ${RENODE_DEST_BUILDER}/renode_${RENODE_VERSION}_portable/ ${RENODE_DEST_BUILDER}
+COPY --from=builder /opt/renode_${RENODE_VERSION}--dotnet/ ${RENODE_DEST_BUILDER}
 CMD ["/opt/renode/renode"]
