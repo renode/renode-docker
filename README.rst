@@ -3,9 +3,9 @@ Renode Docker image
 
 This repository contains a Dockerfile for Renode, available on Docker Hub as ``antmicro/renode``.
 
-The image is based on Ubuntu 22.04.
+The image is based on 'microsoft/dotnet/runtime:8.0-noble'.
 
-Renode is installed from a release Debian package.
+Renode is installed from a release linux package.
 
 To build the image run ``docker build --build-arg userId=`id -u` --build-arg groupId=`id -g` -t renode .``.
 
