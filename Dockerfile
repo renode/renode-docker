@@ -27,7 +27,7 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-ARG RENODE_VERSION=1.16.0
+ARG RENODE_VERSION=1.16.1
 
 # Install Renode
 USER root
