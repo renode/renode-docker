@@ -11,7 +11,7 @@ ARG RENODE_URL=https://github.com/renode/renode/releases/download/v$RENODE_VERSI
 #     BUILDER IMAGE     #
 #########################
 # Ubuntu used as builder image for quick tool access, could be minimized if desired
-FROM ubuntu:21.04 AS BUILDER
+FROM ubuntu:21.04 AS builder
 
 # Configuration options
 # Bring global values into scope
@@ -33,11 +33,11 @@ RUN tar -vxf $RENODE_COMPRESSED_DIR/* -C $RENODE_DEST_BUILDER
 #########################
 # Using mono:slim. Was able to get scratch to load by copying some dynamic libraries returned
 # by ldd. But mono calls other shared libs at runtime. Finding each is a britle task.
-FROM mono:slim as RUNTIME
+FROM mono:slim AS runtime
 
 # Bring global values into scope
 ARG RENODE_DEST_BUILDER
 ARG RENODE_VERSION
 
-COPY --from=BUILDER ${RENODE_DEST_BUILDER}/renode_${RENODE_VERSION}_portable/ ${RENODE_DEST_BUILDER}
+COPY --from=builder ${RENODE_DEST_BUILDER}/renode_${RENODE_VERSION}_portable/ ${RENODE_DEST_BUILDER}
 CMD ["/opt/renode/renode"]
