@@ -6,7 +6,7 @@ ARG RENODE_URL=https://github.com/renode/renode/releases/download/v$RENODE_VERSI
 
 
 # Ubuntu used as builder image for quick tool access, could be minimized if desired
-FROM ubuntu:21.04 AS builder
+FROM ubuntu:24.04 AS builder
 
 ARG RENODE_DEST_BUILDER
 ARG RENODE_URL
