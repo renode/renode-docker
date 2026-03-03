@@ -1,20 +1,13 @@
 # This dockerfile builds a minimized runtime image.
-#########################
-#      GLOBAL ARGS      #
-#########################
+
 ARG RENODE_DEST_BUILDER=/opt/renode/
 ARG RENODE_VERSION=1.16.1
 ARG RENODE_URL=https://github.com/renode/renode/releases/download/v$RENODE_VERSION/renode-$RENODE_VERSION.linux-portable.tar.gz
 
 
-#########################
-#     BUILDER IMAGE     #
-#########################
 # Ubuntu used as builder image for quick tool access, could be minimized if desired
 FROM ubuntu:21.04 AS builder
 
-# Configuration options
-# Bring global values into scope
 ARG RENODE_DEST_BUILDER
 ARG RENODE_URL
 # !!CONFIG NOTE!!: the trailing `/` here is important. Removing it will cause ADD below to rename external file
@@ -28,14 +21,10 @@ ADD $RENODE_URL $RENODE_COMPRESSED_DIR
 RUN tar -vxf $RENODE_COMPRESSED_DIR/* -C $RENODE_DEST_BUILDER
 
 
-#########################
-#     RUNTIME IMAGE     #
-#########################
 # Using mono:slim. Was able to get scratch to load by copying some dynamic libraries returned
 # by ldd. But mono calls other shared libs at runtime. Finding each is a britle task.
 FROM mono:slim AS runtime
 
-# Bring global values into scope
 ARG RENODE_DEST_BUILDER
 ARG RENODE_VERSION
 
