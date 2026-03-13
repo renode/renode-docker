@@ -18,7 +18,7 @@ Renode minimized container image
 This Dockerfile uses a multistage build with runtime image based on `Dotnet:8.0-bookworm-slim` to minimize runtime container components and static image size.
 By default if no version is passed via `--build-arg RENODE_VERSION=x.y.z` it will build `1.16.1`.
 
-Note on ``Podman`` replacing ``Docker``: https://podman.io/whatis.html
+Note on ``Podman`` replacing ``Docker``: https://docs.podman.io/en/latest/
 
 Static image size comparison:
     Ubuntu base ~805 MB
