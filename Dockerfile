@@ -24,7 +24,7 @@ RUN mkdir -p /home/developer && \
     chown $userId:$groupId -R /home/developer
 
 USER developer
-ENV HOME /home/developer
+ENV HOME=/home/developer
 WORKDIR /home/developer
 
 ARG RENODE_VERSION=1.16.1
@@ -38,4 +38,4 @@ RUN wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/r
     rm -rf /var/lib/apt/lists/*
 RUN pip3 install -r /opt/renode/tests/requirements.txt --no-cache-dir
 USER developer
-CMD renode
+CMD ["renode"]
