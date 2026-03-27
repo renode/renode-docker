@@ -24,4 +24,6 @@ ARG RENODE_DEST_BUILDER
 ARG RENODE_VERSION
 
 COPY --from=builder /opt/renode_${RENODE_VERSION}--dotnet/ ${RENODE_DEST_BUILDER}
-CMD ["/opt/renode/renode"]
+ENV PATH="$PATH:${RENODE_DEST_BUILDER}"
+
+CMD ["renode"]
