@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0-noble
 LABEL maintainer="Piotr Zierhoffer <pzierhoffer@antmicro.com>"
 
 ARG RENODE_DEST=/opt/renode/
-ARG RENODE_VERSION=1.16.1
+ARG RENODE_VERSION=1.17.0
 ARG RENODE_URL=https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode-${RENODE_VERSION}.linux-dotnet.tar.gz
 
 ARG DEBIAN_FRONTEND=noninteractive
